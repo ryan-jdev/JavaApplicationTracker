@@ -8,17 +8,17 @@ public class Main {
 
         int choice = 0;
 
-        while(choice != 5) { // Display for user
+        while(choice != 6) { // Display for user
             System.out.println("\n\n=========JOB APPLICATION TRACKER=========");
             System.out.println("1. Add Application");
             System.out.println("2. View Applications");
             System.out.println("3. Remove application(s)");
             System.out.println("4. Statistics");
-            System.out.println("5. Exit");
+            System.out.println("5. Search / Filter Applications");
+            System.out.println("6. Exit");
             System.out.println("\nChoose an option: ");
 
             choice = scan.nextInt();
-            scan.nextLine();
 
         switch(choice) {
             case 1: // Add applications
@@ -154,13 +154,121 @@ public class Main {
                     System.out.printf("\nOffer rate: %.1f%%%n", offerRate);
                 }
                 break;
+            case 5:
+                System.out.println("===== SEARCH / FILTER =====");
+                System.out.println("1. Search by company");
+                System.out.println("2. Search by position");
+                System.out.println("3. Filter by status");
+                System.out.println("4. Return to main menu\n");
 
-            case 5: // Exit
+                int search = scan.nextInt();
+                scan.nextLine();
+
+                switch(search) {
+                    case 1:
+                        System.out.print("Search by company: ");
+                        String searchCompany = scan.nextLine();
+
+                        boolean companyFound = false;
+
+                        for(JobApplication app: applications) {
+                            if(app.getCompany().equalsIgnoreCase(searchCompany)) {
+                                System.out.println("\nCompany: " + app.getCompany());
+                                System.out.println("\nPosition: " + app.getPosition());
+                                System.out.println("\nStatus: " + app.getStatus());
+                                System.out.println("\nNotes: " + app.getNotes());
+
+                                companyFound = true;
+                            }
+                        }
+                        if(!companyFound) {
+                            System.out.println("No application found.");
+                        }
+                        break;
+
+                    case 2:
+                        System.out.print("Search by position: ");
+                        String searchPosition = scan.nextLine();
+
+                        boolean positionFound = false;
+
+                        for(JobApplication app : applications) {
+                            if(app.getPosition().equalsIgnoreCase(searchPosition)) {
+                                System.out.println("\nCompany: " + app.getCompany());
+                                System.out.println("\nPosition: " + app.getPosition());
+                                System.out.println("\nStatus: " + app.getStatus());
+                                System.out.println("\nNotes: " + app.getNotes());  
+
+                                positionFound = true;
+                            }
+                        }
+                        if(!positionFound) {
+                            System.out.println("No applications found.");
+                        }
+                        break;
+
+                    case 3:
+                        System.out.println("\nWhich status application do you want to filter by?");
+                        System.out.println("1. Applied");
+                        System.out.println("2. Interview");
+                        System.out.println("3. Offer");
+                        System.out.println("4. Rejected");
+
+                        System.out.print("Choose a status: ");
+                        int filterChoice = scan.nextInt();
+
+                        Status searchStatus = null;
+
+                        switch(filterChoice) {
+                            case 1:
+                                searchStatus = Status.APPLIED;
+                                break;
+
+                            case 2:
+                                searchStatus = Status.INTERVIEW;
+                                break;
+
+                            case 3:
+                                searchStatus = Status.OFFER;
+                                break;
+
+                            case 4:
+                                searchStatus = Status.REJECTED;
+                                break;
+
+                            default:
+                                System.out.println("Invalid status choice.");
+                                break;
+                        }
+                        if(searchStatus != null) {
+                            for(JobApplication app : applications) {
+                                if(app.getStatus() == searchStatus) {
+                                    System.out.println("\nCompany: " + app.getCompany());
+                                    System.out.println("Position: " + app.getPosition());
+                                    System.out.println("Status: " + app.getStatus());
+                                    System.out.println("Notes: " + app.getNotes());
+                                }
+                            }
+                        }
+
+                        break;
+
+                    case 4:
+                        System.out.println("Returning to main menu...");
+                        break;
+
+                    default:
+                        System.out.println("Please choose an option (1-4)");
+                        break;
+                }
+
+                break;
+            case 6: // Exit
                 System.out.println("\n\nGoodbye!");
                 break;
 
             default:
-                System.out.println("\n\nInvalid choice. Please choose 1-5");
+                System.out.println("\n\nInvalid choice. Please choose 1-6");
                 break;
             } 
         }

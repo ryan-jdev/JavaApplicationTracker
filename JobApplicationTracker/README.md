@@ -10,6 +10,9 @@ on application status.
 - View all applications
 - Remove applications
 - Track application status
+- Search applications by company
+- Search applications by position
+- Filter applications by status
 - Add notes to applications
 - Calculate application statistics
 - Calculate interview and offer rates
